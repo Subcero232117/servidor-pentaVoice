@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>SubVoice | Penta Studio</title>
+    <link rel="stylesheet" href="../src/styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Partículas de fondo animadas -->
+    <div class="particles-bg" id="particlesBg"></div>
+
+    <div class="layout">
+        <!-- Panel Principal -->
+        <div class="panel-container">
+            <!-- Header con logo -->
+            <div class="panel-header">
+                <div class="logo-container">
+                    <svg class="logo-pentagon" viewBox="0 0 100 100" width="42" height="42">
+                        <polygon points="50,5 95,35 80,85 20,85 5,35" fill="none" stroke="currentColor" stroke-width="2"/>
+                        <text x="50" y="60" text-anchor="middle" font-size="32" font-weight="bold" fill="currentColor">PS</text>
+                    </svg>
+                    <div class="logo-text">
+                        <span class="logo-title">SubVoice</span>
+                        <span class="logo-subtitle">by Penta Studio</span>
+                    </div>
+                </div>
+                <div class="connection-status" id="connStatus">
+                    <span class="status-dot"></span>
+                    <span class="status-text">Conectando...</span>
+                </div>
+            </div>
+
+            <!-- Sección de nombre de usuario -->
+            <div class="section name-section">
+                <label class="section-label">
+                    <svg class="label-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                        <circle cx="12" cy="7" r="4"/>
+                    </svg>
+                    Tu nombre en el juego
+                </label>
+                <div class="name-input-group">
+                    <input id="nameInput" type="text" maxlength="24" placeholder="Ingresa tu nametag" autocomplete="off">
+                    <button id="btnSaveName" class="btn-primary">
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                            <polyline points="17 21 17 13 7 13 7 21"/>
+                            <polyline points="7 3 7 8 15 8"/>
+                        </svg>
+                        Guardar
+                    </button>
+                </div>
+            </div>
+
+            <!-- Controles de voz -->
+            <div class="voice-controls">
+                <!-- Micrófono -->
+                <div class="control-card mic-card">
+                    <button id="btnMic" class="control-btn mic-btn">
+                        <div class="btn-icon-wrapper">
+                            <svg id="micIcon" class="btn-icon" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                                <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                                <line x1="12" y1="19" x2="12" y2="23"/>
+                                <line x1="8" y1="23" x2="16" y2="23"/>
+                            </svg>
+                        </div>
+                        <div class="pulse-ring"></div>
+                    </button>
+                    <div class="control-info">
+                        <p class="control-label" id="micLabel">Micrófono</p>
+                        <span class="control-status active" id="micStatus">Activo</span>
+                    </div>
+                </div>
+
+                <!-- Team Voice -->
+                <div class="control-card team-card">
+                    <button id="btnTeamV" class="control-btn team-btn">
+                        <div class="btn-icon-wrapper">
+                            <svg id="teamIcon" class="btn-icon" viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                    </button>
+                    <div class="control-info">
+                        <p class="control-label" id="teamLabel">Team Voice</p>
+                        <span class="control-status" id="teamStatus">Desactivado</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Control de volumen global -->
+            <div class="section volume-section">
+                <label class="section-label">
+                    <svg class="label-icon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+                        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+                    </svg>
+                    Volumen global
+                    <span class="volume-value" id="volumeValue">50%</span>
+                </label>
+                <div class="volume-slider-container">
+                    <input type="range" id="volSlider" class="volume-slider" min="0" max="100" value="80">
+                    <div class="volume-track" id="volumeTrack"></div>
+                </div>
+            </div>
+
+            <!-- Información del sistema -->
+            <div class="system-info">
+                <div class="info-card">
+                    <svg class="info-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polyline points="12 6 12 12 16 14"/>
+                    </svg>
+                    <div class="info-content">
+                        <span class="info-label">Latencia</span>
+                        <span class="info-value" id="ping">-- ms</span>
+                    </div>
+                </div>
+                <div class="info-card">
+                    <svg class="info-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                        <line x1="9" y1="3" x2="9" y2="21"/>
+                    </svg>
+                    <div class="info-content">
+                        <span class="info-label">Sala</span>
+                        <span class="info-value" id="room">--</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="panel-footer">
+                <p>© 2025 SubVoice | Penta Studio</p>
+                <p class="footer-tech">WebRTC + WebSockets</p>
+            </footer>
+        </div>
+
+        <!-- Panel de Peers -->
+        <aside class="peers-panel">
+            <div class="peers-header">
+                <h3>
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                        <circle cx="9" cy="7" r="4"/>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                    </svg>
+                    Jugadores conectados
+                </h3>
+                <span class="peers-count" id="peersCount">0</span>
+            </div>
+            <div id="peersList" class="peers-list">
+                <!-- Los peers se generan dinámicamente -->
+            </div>
+            <div class="peers-empty" id="peersEmpty">
+                <svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                    <circle cx="9" cy="7" r="4"/>
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+                </svg>
+                <p>No hay jugadores conectados</p>
+            </div>
+        </aside>
+    </div>
+    
+    <script type="module" src="../src/app.js"></script>
+</body>
+</html>

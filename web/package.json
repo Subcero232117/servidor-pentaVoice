@@ -1,0 +1,9 @@
+{
+  "name": "subvoice-web",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node ../server/src/index.js"
+  }
+}
